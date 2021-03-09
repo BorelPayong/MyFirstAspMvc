@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "recuperemotdepasse";
+}
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="title">Recuperer mot de passe</div>
+        <form action="#">
+
+            <div class="field">
+                <input type="text" required>
+                <label>Entrez votre email</label>
+            </div>
+
+            <div class="field">
+                <input type="submit" value="Envoyez">
+            </div>
+
+            <h6 align="center">un code vous sera envoyez via cet email!!!</h6>
+
+            <div class="signup-link">
+                <a href="@Url.Action("Login", "Account")">Connexion</a>
+            </div>
+
+        </form>
+    </div>
+</body>

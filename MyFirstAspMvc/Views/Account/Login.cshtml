@@ -1,0 +1,59 @@
+﻿@model MyFirstAspMvc.Models.LoginModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css">
+</head>  
+<body>
+
+    <div class="wrapper">
+        <div class="title">Connexion</div>
+
+        <form method="post" action="@Url.Action("Login", "Account")">
+
+            @if (Model != null && Model.IsError)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.Message
+                </div>
+            }
+
+
+            <div class="field">
+                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" required>
+                <label></label>
+            </div>
+
+
+            <div class="field">
+                <input name="password" id="password" type="password" required>
+                <label></label>
+            </div>
+
+            <div class="content">
+                <div class="checkbox">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Se rappeler de moi</label>
+                </div>
+
+                <div class="pass-link">
+                    <a href="@Url.Action("recuperemotdepasse", "Account")">Mot de passe oublier?</a>
+                </div>
+            </div>
+
+            <div class="field">
+                <input type="submit" value="Connecte">
+            </div>
+
+            <div class="signup-link">
+                Pas de compte? <a href="@Url.Action("register", "Account")">Créer un compte</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+
