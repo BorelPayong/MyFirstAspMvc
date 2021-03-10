@@ -9,7 +9,7 @@
 
     <div class="wrapper">
         <div class="title">Registration</div>
-        <form method="post" action="@Url.Action("Login","Register")">
+        <form method="post" action="@Url.Action("Register","Account")">
 
             @if (Model != null && Model.IsError)
             {
@@ -18,21 +18,24 @@
                 </div>
             }
 
+        <div class="field">
+            <input value="@(Model != null ? Model.Name : "")" name="name" id="name" type="text" placeholder="Enter your name">
+            @Html.ValidationMessageFor(x => x.Name, null, new { @class = "text-danger" })
+        </div>
+
             <div class="field">
-                <input value="@(Model != null ? Model.Name : "")" name="name"
-                       id="name" type="text" placeholder="Enter your name" required>
+                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="email" placeholder="Enter your email">
+                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
             </div>
 
             <div class="field">
-                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" placeholder="Enter your email" required>
+                <input name="password" id="password" type="password" placeholder="Enter your password">
+                @Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-danger" })
             </div>
 
             <div class="field">
-                <input name="password" id="password" type="password" placeholder="Enter your password" required>
-            </div>
-
-            <div class="field">
-                <input name="confimpassword" id="confirmpassword" type="password" placeholder="Confirm your password" required>
+                <input name="confimpassword" id="confirmpassword" type="password" placeholder="Confirm your password">
+                @Html.ValidationMessageFor(x => x.ConfirmPassword, null, new { @class = "text-danger" })
             </div>
 
             <div class="field">

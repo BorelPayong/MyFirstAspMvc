@@ -52,5 +52,19 @@ namespace MyFirstAspMvc.Controllers
             return RedirectToAction("Index", "Home", new { username = user.Name });
             
         }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Save data
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
     }
 }
