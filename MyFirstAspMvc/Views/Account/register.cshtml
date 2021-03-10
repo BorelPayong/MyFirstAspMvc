@@ -1,8 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "register";
-}
-
+﻿@model MyFirstAspMvc.Models.RegisterModel
+<!DOCTYPE html>
+<html>
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="~/Content/style.css">
@@ -10,56 +8,46 @@
 <body>
 
     <div class="wrapper">
-        <div class="title">Enregistrement</div>
-        <form action="#">
+        <div class="title">Registration</div>
+        <form method="post" action="@Url.Action("Login","Register")">
+
+            @if (Model != null && Model.IsError)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.Message
+                </div>
+            }
 
             <div class="field">
-                <input type="text" required>
-                <label>Nom</label>
+                <input value="@(Model != null ? Model.Name : "")" name="name"
+                       id="name" type="text" placeholder="Enter your name" required>
             </div>
 
             <div class="field">
-                <input type="text" required>
-                <label>Prenom</label>
+                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" placeholder="Enter your email" required>
             </div>
 
             <div class="field">
-                <input type="text" required>
-                <label>Telephone</label>
+                <input name="password" id="password" type="password" placeholder="Enter your password" required>
             </div>
 
             <div class="field">
-                <input type="text" required>
-                <label>Email</label>
+                <input name="confimpassword" id="confirmpassword" type="password" placeholder="Confirm your password" required>
             </div>
 
             <div class="field">
-                <input type="Date" required>
-                <label></label>
-            </div>
-
-            <div class="field">
-                <input type="password" required>
-                <label>Mot de passe</label>
-            </div>
-
-            <div class="field">
-                <input type="password" required>
-                <label>Confirme mot de passe</label>
-            </div>
-
-            <div class="field">
-                <input type="submit" value="Créer compte">
+                <input type="submit" value="Register">
             </div>
 
             <div class="signup-link">
-                <a href=""@Url.Action("Login", "Account")">Connexion</a>
+                <a href="@Url.Action("Login", "Account")">Connexion</a>
             </div>
 
             <div class="signup-link">
-                <a href=""@Url.Action("contrat", "Account")">term and contrat</a>
+                <a href="@Url.Action("Contrat", "Account")">term and contrat</a>
             </div>
 
         </form>
     </div>
 </body>
+</html>

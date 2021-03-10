@@ -21,33 +21,31 @@
 
 
             <div class="field">
-                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" required>
-                <label></label>
+                <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" placeholder="Enter your email" required>
             </div>
 
 
             <div class="field">
-                <input name="password" id="password" type="password" required>
-                <label></label>
+                <input name="password" id="password" type="password" placeholder="Enter your password" required>
             </div>
 
             <div class="content">
                 <div class="checkbox">
                     <input type="checkbox" id="remember-me">
-                    <label for="remember-me">Se rappeler de moi</label>
+                    <label for="remember-me">Remember-me</label>
                 </div>
 
                 <div class="pass-link">
-                    <a href="@Url.Action("recuperemotdepasse", "Account")">Mot de passe oublier?</a>
+                    <a href="@Url.Action("RecupereMotDePasse", "Account")">Forget Password?</a>
                 </div>
             </div>
 
             <div class="field">
-                <input type="submit" value="Connecte">
+                <input type="submit" value="Connexion">
             </div>
 
             <div class="signup-link">
-                Pas de compte? <a href="@Url.Action("register", "Account")">Créer un compte</a>
+                No account? <a href="@Url.Action("Register", "Account")">Registration</a>
             </div>
 
         </form>

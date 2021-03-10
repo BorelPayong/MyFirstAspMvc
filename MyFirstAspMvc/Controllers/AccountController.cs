@@ -21,6 +21,21 @@ namespace MyFirstAspMvc.Controllers
             return View( );
         }
 
+        public ActionResult Contrat()
+        {
+            return View();
+        }
+
+        public ActionResult RecupereMotDePasse()
+        {
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
