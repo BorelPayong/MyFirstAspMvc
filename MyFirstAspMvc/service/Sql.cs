@@ -1,97 +1,121 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
+using System.Data;   
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyFirstAspMvc.service
+namespace MyFirstAspMvc.Services
 {
     public class Sql
     {
+
         public string ConnectionString { get; private set; }
 
-        private DbProviderFactory Factory;
+        private DbProviderFactory factory;
 
-        public Sql(string connectionStringName)
-        {
+        public Sql(string ConStringName)
+        {// creer une connection à partir du nom du provider
+
             ConnectionString = ConfigurationManager.
-                ConnectionStrings[connectionStringName].ConnectionString;
+                ConnectionStrings[ConStringName].ConnectionString;
             string providerName = ConfigurationManager.
-                ConnectionStrings[connectionStringName].ProviderName;
+                ConnectionStrings[ConStringName].ProviderName;
+            factory = DbProviderFactories.GetFactory(providerName);//recupère un espace de nom et le passe en param
 
-            Factory = DbProviderFactories.GetFactory(providerName);
         }
-
-        public void Execute(string commandText, IEnumerable<Sql.Paramater> paramaters )
+        public void Execute(string commandText, IEnumerable<Parameter> parameters, bool isStoredProcedure = false)
         {
-            using (var com = Factory.CreateConnection())
+            using (var con = factory.CreateConnection())
             {
-                com.ConnectionString = ConnectionString;
-                com.Open();
-
-                using(var command = Factory.CreateCommand())
+                con.ConnectionString = ConnectionString;
+                con.Open();
+                using (var command = factory.CreateCommand())
                 {
-                    command.Connection = com;
+                    command.Connection = con;
                     command.CommandText = commandText;
+                    if (isStoredProcedure)
+                        command.CommandType = CommandType.StoredProcedure;
 
-                    if (paramaters != null)
-                    {
-                        foreach(var p in paramaters)
-                        {
-                            var param = Factory.CreateParameter();
-                            param.ParameterName = p.Name;
-                            param.Value = p.Value;
-                            param.DbType = p.Type;
-                            command.Parameters.Add(param);
-                        }
-                    }
+                    AddCommandParameters(parameters, command);
+
                     command.ExecuteNonQuery();
+                    UpdateParameters(parameters, command);
+                }
+            }
+       }
+
+        private static void UpdateParameters(IEnumerable<Parameter> parameters, DbCommand command)
+        {
+            foreach (DbParameter p in command.Parameters)
+            {
+                var param = parameters.FirstOrDefault(x => x.Name == p.ParameterName);
+                if (param != null)
+                {
+                    param.Value = p.Value;
                 }
             }
         }
 
-        public DbDataReader Read(string query, IEnumerable<Sql.Paramater> paramaters, bool isStoredProcedure = true)
+        private void AddCommandParameters(IEnumerable<Parameter> parameters, DbCommand command)
         {
-            var com = Factory.CreateConnection();
-            com.ConnectionString = ConnectionString;
-            com.Open();
-            var command = Factory.CreateCommand();
-            command.Connection = com;
-            command.CommandText = query;
-            if (isStoredProcedure)
-                command.CommandType = CommandType.StoredProcedure;
-            if (paramaters != null)
+            if (parameters != null)
             {
-                foreach (var p in paramaters)
+                foreach (var p in parameters)
                 {
-                    var param = Factory.CreateParameter();
+                    var param = factory.CreateParameter();
 
                     param.ParameterName = p.Name;
                     param.Value = p.Value;
                     param.DbType = p.Type;
+                    param.Direction = p.Direction;
 
                     command.Parameters.Add(param);
                 }
             }
-            return command.ExecuteReader(CommandBehavior.CloseConnection); // fermeture du reader  ferme la connection
         }
 
-        public class Paramater
+        public DbDataReader Read(string query, IEnumerable<Parameter> parameters, bool isStoredProcedure = false)
+        {
+            var connection = factory.CreateConnection();
+            connection.ConnectionString = ConnectionString;
+            connection.Open();
+            var command = factory.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = query;
+            if (isStoredProcedure)
+                command.CommandType = CommandType.StoredProcedure;
+
+            AddCommandParameters(parameters, command);
+
+            var reader =  command.ExecuteReader(CommandBehavior.CloseConnection);//la fermeture d'une commande entraîne la fermeture de la connection
+
+            UpdateParameters(parameters, command);
+
+            return reader;
+        }
+
+
+        public class Parameter
         {
             public string Name { get; set; }
             public object Value { get; set; }
             public DbType Type { get; set; }
-
-            public Paramater(string name, object value, DbType type)
+            public ParameterDirection Direction { get; set; }
+            public Parameter(string name, object value, ParameterDirection direction = ParameterDirection.Input)
             {
                 Name = name;
                 Value = value;
+                Direction = direction;
+            }
+            public Parameter(string name, object value, DbType type, ParameterDirection direction = ParameterDirection.Input):
+                this(name, value, direction)
+            {
                 Type = type;
             }
-        }
 
+        }
     }
+   
+
 }

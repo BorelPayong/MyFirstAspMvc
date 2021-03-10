@@ -1,5 +1,6 @@
 ﻿using MyFirstAspMvc.service;
 using MyFirstAspMvc.service.Entities;
+using MyFirstAspMvc.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,10 @@ namespace MyFirstAspMvc.services
         public User Execute()
         {
             Sql sql = new Sql("SqlServer");
-            var reader = sql.Read("Sp_Authentificate_User", new Sql.Paramater[]
+            var reader = sql.Read("Sp_Authentificate_User", new Sql.Parameter[]
                 {
-                    new Sql.Paramater("@Email", Command.Email, System.Data.DbType.String),
-                    new Sql.Paramater("@Password", Command.Password, System.Data.DbType.String)
+                    new Sql.Parameter("@Email", Command.Email, System.Data.DbType.String),
+                    new Sql.Parameter("@Password", Command.Password, System.Data.DbType.String)
                 }, 
                 true);
 
