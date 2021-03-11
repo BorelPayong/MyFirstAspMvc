@@ -31,6 +31,12 @@ namespace MyFirstAspMvc.Controllers
             return View();
         }
 
+        /*public ActionResult RecupereMotDePasse(ForgotModel models)
+        {
+            //envoyer un mail a l'adresse noter
+            //le corps du mail doit contenir: un lien vers la page reset password
+            //ecrire la logiaue de modifcation de mot de passe
+        }*/
         public ActionResult Register()
         {
             return View();
@@ -58,7 +64,25 @@ namespace MyFirstAspMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Save data
+                Register useCase = new Register
+                (
+                    new RegisterCommand
+                    (
+                        model.Email,
+                        model.Name,
+                        DateTime.Now,
+                        true,
+                        model.Password
+                    )
+                );
+                var user = useCase.Execute();
+
+                if (user == null)
+                {
+                    model.IsError = true;
+                    model.Message = "An error occured please try again later";
+                    return View(model);
+                }
                 return RedirectToAction("Login");
             }
             else

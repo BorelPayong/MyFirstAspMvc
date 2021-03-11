@@ -69,7 +69,7 @@ namespace MyFirstAspMvc.Services
                     param.Value = p.Value;
                     param.DbType = p.Type;
                     param.Direction = p.Direction;
-
+           
                     command.Parameters.Add(param);
                 }
             }

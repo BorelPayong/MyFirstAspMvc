@@ -88,15 +88,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Script\bootstrap.min.js" />
-    <Content Include="Script\jquery-3.4.1.min.js" />
-    <Content Include="Script\jquery-3.5.1.min.js" />
-    <Content Include="Script\jquery-3.6.0.js" />
-    <Content Include="Script\jquery.validate.min.js" />
-    <Content Include="Script\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\validation.css" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\style.css" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,10 +109,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForgotModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\Register.cs" />
     <Compile Include="service\Authentificate.cs" />
     <Compile Include="service\Entities\User.cs" />
     <Compile Include="service\Sql.cs" />

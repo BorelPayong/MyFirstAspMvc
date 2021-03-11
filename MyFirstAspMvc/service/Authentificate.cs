@@ -21,11 +21,11 @@ namespace MyFirstAspMvc.services
         {
             Sql sql = new Sql("SqlServer");
             var reader = sql.Read("Sp_Authentificate_User", new Sql.Parameter[]
-                {
-                    new Sql.Parameter("@Email", Command.Email, System.Data.DbType.String),
-                    new Sql.Parameter("@Password", Command.Password, System.Data.DbType.String)
-                }, 
-                true);
+            {
+                new Sql.Parameter("@Email", Command.Email, System.Data.DbType.String),
+                new Sql.Parameter("@Password", Command.Password, System.Data.DbType.String)
+            }, 
+            true);
 
             if (reader != null)
             {
@@ -36,7 +36,8 @@ namespace MyFirstAspMvc.services
                                         reader["Email"].ToString(),
                                         reader["Password"].ToString(),
                                         reader["Name"].ToString()
-                                   );
+                                       
+                                   ) ;
                 }
                 reader.Close();
             }
