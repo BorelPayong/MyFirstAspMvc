@@ -55,6 +55,8 @@ namespace MyFirstAspMvc.Controllers
                 return View(model);
             }
 
+            Session[nameof(User)] = user;
+
             return RedirectToAction("Index", "Home", new { username = user.Name });
             
         }

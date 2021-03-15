@@ -12,6 +12,10 @@ namespace MyFirstAspMvc.Controllers
         // GET: Home
         public ActionResult Index(string userName)
         {
+            /*if (Session(nameof(User)) = null)
+            {
+                return RedirectToAction("Login", "Acccount");
+            }*/
             return View( new HomeModel { Username=userName});
         }
     }
