@@ -1,16 +1,10 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     ViewBag.Title = "recuperemotdepasse";
 }
-
-<head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="~/Content/style.css">
-</head>
-<body>
-
-    <div class="wrapper">
-        <div class="title">Recuperer mot de passe</div>
+        <div class="title">Forget Password</div>
         <form action="#">
 
             <div class="field">
@@ -18,7 +12,7 @@
             </div>
 
             <div class="field">
-                <input type="submit" value="Envoyez">
+                <input type="submit" value="Send">
             </div>
 
             <h6 align="center">A code will be sent to you via this email !!!</h6>
@@ -28,5 +22,3 @@
             </div>
 
         </form>
-    </div>
-</body>

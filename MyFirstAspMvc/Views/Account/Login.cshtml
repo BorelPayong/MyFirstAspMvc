@@ -1,20 +1,15 @@
-﻿@model MyFirstAspMvc.Models.LoginModel
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="~/Content/style.css">
-</head>  
-<body>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model MyFirstAspMvc.Models.LoginModel
 
-    <div class="wrapper">
         <div class="title">Connexion</div>
 
         <form method="post" action="@Url.Action("Login", "Account")">
 
             @if (Model != null && Model.IsError)
             {
-                <div  class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert">
                     @Model.Message
                 </div>
             }
@@ -49,9 +44,3 @@
             </div>
 
         </form>
-
-    </div>
-
-</body>
-</html>
-
