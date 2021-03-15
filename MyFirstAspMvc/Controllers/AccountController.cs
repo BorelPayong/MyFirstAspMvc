@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace MyFirstAspMvc.Controllers
 {
@@ -16,9 +17,9 @@ namespace MyFirstAspMvc.Controllers
             return View(model);
         }
 
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            return View( );
+            return View(new LoginModel { ReturnUrl = returnUrl});
         }
 
         public ActionResult Contrat()
@@ -56,10 +57,17 @@ namespace MyFirstAspMvc.Controllers
                 return View(model);
             }
 
-            Session[nameof(User)] = user;
-
-            return RedirectToAction("Index", "Home", new { username = user.Name });
+            FormsAuthentication.SetAuthCookie(user.Email, false);
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+                return Redirect(model.ReturnUrl);
+            return RedirectToAction("Index", "Home");
             
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

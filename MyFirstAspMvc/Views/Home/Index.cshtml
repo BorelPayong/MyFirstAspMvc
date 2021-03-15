@@ -1,13 +1,7 @@
 ﻿@model MyFirstAspMvc.Models.HomeModel
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-        <h1>Home Page</h1>
-    <h2>@(Model != null && !String.IsNullOrEmpty(Model.Username)? "Welcome " +Model.Username: "")</h2>
+@{
+    ViewBag.Title = "Home page";
+}
 
-</body>
-</html>
+<h1>Home Page</h1>
+<h2>@(Model != null && !String.IsNullOrEmpty(Model.Username)? "Welcome " +Model.Username: "")</h2>

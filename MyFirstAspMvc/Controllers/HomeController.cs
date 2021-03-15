@@ -6,17 +6,27 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace MyFirstAspMvc.Controllers
-{
+{       
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index(string userName)
+        public ActionResult Index(HomeModel model)
         {
-            /*if (Session(nameof(User)) = null)
-            {
-                return RedirectToAction("Login", "Acccount");
-            }*/
-            return View( new HomeModel { Username=userName});
+            model.Username = HttpContext.User.Identity.Name;
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Contact()
+        {
+            return View();
         }
     }
 }
