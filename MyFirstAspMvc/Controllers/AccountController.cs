@@ -31,9 +31,10 @@ namespace MyFirstAspMvc.Controllers
             return View();
         }
 
-        /*public ActionResult RecupereMotDePasse(ForgotModel models)
+        /*[HttpPost]
+        public ActionResult RecupereMotDePasse(ForgotModel models)
         {
-            //envoyer un mail a l'adresse noter
+            //envoyer mail à l'addresse indiqué (utilise votre smtp gmail)
             //le corps du mail doit contenir: un lien vers la page reset password
             //ecrire la logiaue de modifcation de mot de passe
         }*/

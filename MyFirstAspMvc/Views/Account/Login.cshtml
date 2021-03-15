@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
 }
 @model MyFirstAspMvc.Models.LoginModel
 
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="pass-link">
-                    <a href="@Url.Action("RecupereMotDePasse", "Account")">Forget Password?</a>
+                    <a href="@Url.Action("RecupereMotDePasse", "Account", new { email = Model != null ? Model.Email : ""})">Forget Password?</a>
                 </div>
             </div>
 

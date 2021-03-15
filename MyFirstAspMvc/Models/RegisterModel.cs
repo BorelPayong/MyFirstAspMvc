@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MyFirstAspMvc.Models
 {
-    public class RegisterModel
+    public class RegisterModel : BaseModel
     {
         [Required]
         [StringLength(100, MinimumLength = 2)]
@@ -25,9 +25,5 @@ namespace MyFirstAspMvc.Models
 
         //[Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-
-
-        public bool IsError { get; set; } = false;
-        public string Message { get; set; } = string.Empty;
     }
 }

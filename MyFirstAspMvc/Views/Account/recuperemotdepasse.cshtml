@@ -1,24 +1,36 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model MyFirstAspMvc.Models.ForgotModel 
 @{
-    ViewBag.Title = "recuperemotdepasse";
+    ViewBag.Title = "Forget Password";
 }
-        <div class="title">Forget Password</div>
-        <form action="#">
 
-            <div class="field">
-                <input type="text" placeholder="Enter your email" required>
-            </div>
 
-            <div class="field">
-                <input type="submit" value="Send">
-            </div>
+<div class="title">@ViewBag.Title</div>
+<form method="post" action="@Url.Action("recuperemotdepasse", "Account")">
 
-            <h6 align="center">A code will be sent to you via this email !!!</h6>
+    @if (Model != null && Model.IsError)
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.Message
+        </div>
+    }
 
-            <div class="signup-link">
-                <a href="@Url.Action("Login", "Account")">Connexion</a>
-            </div>
 
-        </form>
+    <div class="field">
+        <input value="@(Model != null ? Model.Email : "")" name="email" id="email" type="text" placeholder="Enter your email" required>
+    </div>
+
+    <div class="field">
+        <input type="submit" value="Send">
+    </div>
+
+    <div class="content">
+        <div class="pass-link">
+            <a href="@Url.Action("Login", "Account")">Login</a>
+        </div>
+    </div>
+
+    <div class="signup-link">
+        No account? <a href="@Url.Action("Register", "Account")">Registration</a>
+    </div>
+
+</form>
