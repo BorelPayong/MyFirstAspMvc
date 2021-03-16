@@ -3,6 +3,8 @@ using MyFirstAspMvc.services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -58,6 +60,15 @@ namespace MyFirstAspMvc.Controllers
             }
 
             FormsAuthentication.SetAuthCookie(user.Email, false);
+            var identity = (ClaimsIdentity)Thread.CurrentPrincipal.Identity;
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
+            Session[nameof(User)] = new RegisterModel
+            (
+                user.Email,
+                user.Password,
+                user.Password,
+                user.Name
+            );
             if (!string.IsNullOrEmpty(model.ReturnUrl))
                 return Redirect(model.ReturnUrl);
             return RedirectToAction("Index", "Home");
@@ -67,6 +78,7 @@ namespace MyFirstAspMvc.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session[nameof(User)] = null;
             return RedirectToAction("Index", "Home");
         }
 

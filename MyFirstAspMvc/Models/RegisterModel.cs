@@ -25,5 +25,17 @@ namespace MyFirstAspMvc.Models
 
         //[Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
+
+        public RegisterModel()
+        {
+        }
+
+        public RegisterModel(string name, string email, string password, string confirmPassword)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+            ConfirmPassword = confirmPassword;
+        }
     }
 }
