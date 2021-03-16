@@ -21,7 +21,7 @@
         </nav>
         @if (Request.IsAuthenticated)
         {
-            <a title="@(Session[nameof(User)] as RegisterModel ).Name)" class="btn btn-outline-primary" href= "@Url.Action("Logout", "Account")">
+            <a title="@(((System.Security.Claims.ClaimsIdentity)System.Threading.Thread.CurrentPrincipal.Identity).FindFirst(System.Security.Claims.ClaimTypes.Name).Value)" class="btn btn-outline-primary" href= "@Url.Action("Logout", "Account")">
                 Deconnect
             </a>
         }

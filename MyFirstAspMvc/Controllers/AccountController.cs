@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -60,7 +61,7 @@ namespace MyFirstAspMvc.Controllers
             }
 
             FormsAuthentication.SetAuthCookie(user.Email, false);
-            var identity = (ClaimsIdentity)Thread.CurrentPrincipal.Identity;
+            ClaimsIdentity identity = new ClaimsIdentity(Thread.CurrentPrincipal.Identity);
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
             Session[nameof(User)] = new RegisterModel
             (
