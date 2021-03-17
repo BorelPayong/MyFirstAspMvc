@@ -60,6 +60,12 @@ namespace MyFirstAspMvc.Controllers
                 model.Message = "Email or password is invalide";
                 return View(model);
             }
+            else if (user.Status == false)
+            {
+                model.IsError = true;
+                model.Message = "This account has been disable !";
+                return View(model);
+            }
 
             /*FormsAuthentication.SetAuthCookie(user.Email, false);
             ClaimsIdentity identity = new ClaimsIdentity(Thread.CurrentPrincipal.Identity);
@@ -128,6 +134,7 @@ namespace MyFirstAspMvc.Controllers
                         model.Name,
                         DateTime.Now,
                         true,
+                        service.Entities.User.RoleOptions.Customer,
                         model.Password
                     )
                 );
@@ -139,6 +146,7 @@ namespace MyFirstAspMvc.Controllers
                     model.Message = "An error occured please try again later";
                     return View(model);
                 }
+                
                 return RedirectToAction("Login");
             }
             else

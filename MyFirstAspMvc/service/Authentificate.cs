@@ -35,7 +35,9 @@ namespace MyFirstAspMvc.services
                                         int.Parse(reader["id"].ToString()),
                                         reader["Email"].ToString(),
                                         reader["Password"].ToString(),
-                                        reader["Name"].ToString()
+                                        reader["Name"].ToString(),
+                                        reader["Status"].ToString().ToLower() == "true" ? true : false,
+                                        (User.RoleOptions)int.Parse(reader["Role"].ToString())
                                        
                                    ) ;
                 }
