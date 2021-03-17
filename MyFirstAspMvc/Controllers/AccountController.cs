@@ -1,5 +1,6 @@
 ﻿using MyFirstAspMvc.Models;
 using MyFirstAspMvc.services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace MyFirstAspMvc.Controllers
                 return View(model);
             }
 
-            FormsAuthentication.SetAuthCookie(user.Email, false);
+            /*FormsAuthentication.SetAuthCookie(user.Email, false);
             ClaimsIdentity identity = new ClaimsIdentity(Thread.CurrentPrincipal.Identity);
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
             Session[nameof(User)] = new RegisterModel
@@ -69,7 +70,38 @@ namespace MyFirstAspMvc.Controllers
                 user.Password,
                 user.Password,
                 user.Name
+            );*/
+
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
+            (
+                1,
+                user.Email,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(30),
+                false,
+                JsonConvert.SerializeObject
+                (
+                    new RegisterModel
+                    (
+                        user.Email,
+                        user.Password,
+                        user.Password,
+                        user.Name
+                    )
+                ),
+                FormsAuthentication.FormsCookiePath
             );
+
+            Response.Cookies.Add
+            (
+                new HttpCookie
+                (
+                    FormsAuthentication.FormsCookieName,
+                    FormsAuthentication.Encrypt(ticket)
+                )
+            );
+
+
             if (!string.IsNullOrEmpty(model.ReturnUrl))
                 return Redirect(model.ReturnUrl);
             return RedirectToAction("Index", "Home");

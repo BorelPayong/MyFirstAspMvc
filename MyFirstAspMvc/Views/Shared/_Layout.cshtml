@@ -21,7 +21,10 @@
         </nav>
         @if (Request.IsAuthenticated)
         {
-            <a title="@(((System.Security.Claims.ClaimsIdentity)System.Threading.Thread.CurrentPrincipal.Identity).FindFirst(System.Security.Claims.ClaimTypes.Name).Value)" class="btn btn-outline-primary" href= "@Url.Action("Logout", "Account")">
+             var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+             var ticketinfos = FormsAuthentication.Decrypt(cookie.Value);
+             var user = Newtonsoft.Json.JsonConvert.DeserializeObject<RegisterModel>(ticketinfos.UserData);
+            <a title="@user.Name" class="btn btn-outline-primary" href= "@Url.Action("Logout", "Account")">
                 Deconnect
             </a>
         }

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MyFirstAspMvc.Controllers
 {       
-    [Authorize]
+    [Authorize(Roles ="Admin, Student")]
     public class HomeController : Controller
     {
         // GET: Home
