@@ -119,10 +119,14 @@
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\Email.cs" />
+    <Compile Include="service\ForgetPassword.cs" />
     <Compile Include="service\Register.cs" />
     <Compile Include="service\Authentificate.cs" />
     <Compile Include="service\Entities\User.cs" />
+    <Compile Include="service\SmtpClient.cs" />
     <Compile Include="service\Sql.cs" />
+    <Compile Include="service\UserList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
